@@ -233,6 +233,7 @@ public class SocialMediaActivity extends AppCompatActivity implements View.OnCli
         dataMap.put("fromWhom",FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         dataMap.put("imageIdentifier", imageIdentifier);
         dataMap.put("imageLink", imageLink);
+        //okayy
         dataMap.put("des",edtDescription.getText().toString());
         FirebaseDatabase.getInstance().getReference().child("users").child(uids.get(position)).child("received_posts").push().setValue(dataMap);
     }
