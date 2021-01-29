@@ -54,6 +54,7 @@ public class SocialMediaActivity extends AppCompatActivity implements View.OnCli
     private ArrayAdapter adapter;
     private ArrayList<String> uids;
     private String imageLink;
+    //d
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
