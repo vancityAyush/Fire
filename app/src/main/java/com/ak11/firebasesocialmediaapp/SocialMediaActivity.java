@@ -54,7 +54,6 @@ public class SocialMediaActivity extends AppCompatActivity implements View.OnCli
     private ArrayAdapter adapter;
     private ArrayList<String> uids;
     private String imageLink;
-    //d
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +89,10 @@ public class SocialMediaActivity extends AppCompatActivity implements View.OnCli
         switch (item.getItemId()){
             case R.id.logoutItem:
                 logout();
+                break;
+            case R.id.viewPostsItem:
+                Intent intent = new Intent(SocialMediaActivity.this,ViewPostsActivity.class);
+                startActivity(intent);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -234,8 +237,16 @@ public class SocialMediaActivity extends AppCompatActivity implements View.OnCli
         dataMap.put("fromWhom",FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
         dataMap.put("imageIdentifier", imageIdentifier);
         dataMap.put("imageLink", imageLink);
-        //okayy
         dataMap.put("des",edtDescription.getText().toString());
-        FirebaseDatabase.getInstance().getReference().child("users").child(uids.get(position)).child("received_posts").push().setValue(dataMap);
+        FirebaseDatabase.getInstance().getReference().child("users").child(uids.get(position))
+                .child("received_posts").push().setValue(dataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(SocialMediaActivity.this,"Data sent!",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
     }
 }
